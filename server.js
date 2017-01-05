@@ -1,10 +1,76 @@
-var express = require ('express')
-var app = express()
+//Example usage:
+//https://timestamp-ms.herokuapp.com/December%2015,%202015
+//https://timestamp-ms.herokuapp.com/1450137600
+//Example output:
+//{ "unix": 1450137600, "natural": "December 15, 2015" }
 
-app.get('/', function (req, res) {
-  res.send('Hello World!')
+var express = require ('express');
+var app = express();
+var moment = require('moment');
+var http = require('http').Server(app);
+var path = require('path');
+var port = process.env.PORT || 8080;
+
+
+app.get('/:samIam', function(req, res) {
+
+  var amIaNum = Number(req.params.samIam);
+  
+  if(isNaN(amIaNum)){
+     var dateData = new Date(req.params.samIam);
+  }
+  else{
+     var dateData = new Date(req.params.samIam*1000);
+  }
+  
+  var testMe = dateData.toString();
+  
+  if(testMe === "Invalid Date"){
+    res.json({'unix':null,'natural':null});
+  }
+else{
+  
+  var dateNatural = moment(dateData).format("MMMM Do, YYYY");
+    var dateUnix = moment.unix(dateData);
+    res.json({
+      "unix date": dateUnix/1000000, "natural date": dateNatural
+    })
+  
+}
+
+  console.log(dateData);
 })
 
-app.listen(8080, function () {
-  console.log('Example app listening on port 8080!')
+http.listen(port, function() {
+  console.log('We are listening on *:' + port);
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//app.get('/', function (req, res) {
+//  res.send('Hello World!')
+//})
+
+//app.listen(8080, function () {
+//  console.log('Example app listening on port 8080!')
+//})
