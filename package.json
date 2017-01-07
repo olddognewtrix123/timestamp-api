@@ -7,7 +7,7 @@
   "description": "this is the timestamp challenge for FCC",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
   "author": "john gillespie",
   "license": "UNLICENSED"
