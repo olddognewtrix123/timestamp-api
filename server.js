@@ -13,6 +13,8 @@ var port = process.env.PORT || 8080;
 
 app.set('port', (process.env.PORT || 5000));// code from fcc post https://forum.freecodecamp.com/t/solved-need-heroku-help-have-read-other-threads-git-to-heroku-not-working/46737/2
 
+app.get('/', (req, res, next) => res.sendFile(path.join(__dirname, '/index.html')));
+
 app.get('/:samIam', function(req, res) {
 
   var amIaNum = Number(req.params.samIam);
